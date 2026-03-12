@@ -47,5 +47,7 @@ O projeto ja esta preparado para deploy no GitHub Pages com GitHub Actions.
 
 O workflow em `.github/workflows/deploy.yml` faz o build e publica automaticamente.
 
+Essa ativacao em `Settings > Pages` precisa ser feita ao menos uma vez. Sem isso, o GitHub nao cria o site de Pages para o repositorio e o deploy falha.
+
 Para repositorios do tipo `usuario.github.io`, o site sera publicado na raiz.
 Para repositorios comuns, como `usuario/me`, o Astro ajusta automaticamente o `base` para `/<nome-do-repo>` durante o deploy.
