@@ -36,3 +36,16 @@ draft: false
 ```
 
 Se `slug` nao for informado, o Astro usa o nome do arquivo como identificador da rota.
+
+## GitHub Pages
+
+O projeto ja esta preparado para deploy no GitHub Pages com GitHub Actions.
+
+1. Suba o repositorio para o GitHub.
+2. Em `Settings > Pages`, escolha `GitHub Actions` como source.
+3. Faça push para a branch `main`.
+
+O workflow em `.github/workflows/deploy.yml` faz o build e publica automaticamente.
+
+Para repositorios do tipo `usuario.github.io`, o site sera publicado na raiz.
+Para repositorios comuns, como `usuario/me`, o Astro ajusta automaticamente o `base` para `/<nome-do-repo>` durante o deploy.
