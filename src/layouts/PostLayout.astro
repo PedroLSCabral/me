@@ -1,0 +1,44 @@
+---
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+	title: string;
+	subtitle: string;
+	publishedAt: Date;
+	tags: string[];
+	description?: string;
+}
+
+const { title, subtitle, publishedAt, tags, description } = Astro.props;
+
+const formattedDate = new Intl.DateTimeFormat('pt-BR', {
+	day: '2-digit',
+	month: 'long',
+	year: 'numeric',
+}).format(publishedAt);
+---
+
+<BaseLayout title={`${title} | me.`} description={description ?? subtitle}>
+	<main class="post-shell">
+		<div class="post-frame">
+			<div class="post-topbar">
+				<a class="back-link" href="/">me.</a>
+			</div>
+
+			<header class="post-header">
+				<p class="post-date">{formattedDate}</p>
+				<h1>{title}</h1>
+				<p class="post-subtitle">{subtitle}</p>
+				{tags.length > 0 && (
+					<ul class="tag-row" aria-label="Temas do texto">
+						{tags.map((tag) => <li>{tag}</li>)}
+					</ul>
+				)}
+			</header>
+
+			<article class="post-content">
+				<slot />
+			</article>
+		</div>
+	</main>
+</BaseLayout>

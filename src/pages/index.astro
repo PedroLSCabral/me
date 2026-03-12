@@ -1,0 +1,32 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import TextCard from '../components/TextCard.astro';
+
+const texts = (await getCollection('textos', ({ data }) => {
+	return import.meta.env.PROD ? data.draft !== true : true;
+})).sort((first, second) => second.data.publishedAt.valueOf() - first.data.publishedAt.valueOf());
+
+const featuredText = texts[0];
+---
+
+<BaseLayout
+	title="me."
+	description="Diario pessoal e portfolio de textos autorais em uma interface editorial minimalista."
+>
+	<main class="home-shell">
+		<header class="hero">
+			<p class="hero-mark">me.</p>
+		</header>
+
+		<section class="texts-section" aria-labelledby="textos-publicados">
+			<div class="section-heading">
+				<h1 id="textos-publicados">Fragmentos</h1>
+			</div>
+
+			<div class="texts-grid">
+				{texts.map((text) => <TextCard post={text} />)}
+			</div>
+		</section>
+	</main>
+</BaseLayout>

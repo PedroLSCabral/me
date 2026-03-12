@@ -1,0 +1,30 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+	post: CollectionEntry<'textos'>;
+}
+
+const { post } = Astro.props;
+const formattedDate = new Intl.DateTimeFormat('pt-BR', {
+	day: '2-digit',
+	month: 'short',
+	year: 'numeric',
+}).format(post.data.publishedAt);
+---
+
+<a class="text-card" href={`/textos/${post.id}/`} aria-label={`Abrir texto ${post.data.title}`}>
+	<div class="text-card-main">
+		<h2>{post.data.title}</h2>
+		<p>{post.data.subtitle}</p>
+	</div>
+
+	<div class="text-card-meta">
+		<span>{formattedDate}</span>
+		{post.data.tags.length > 0 && (
+			<ul class="tag-row" aria-label="Tags do texto">
+				{post.data.tags.map((tag) => <li>{tag}</li>)}
+			</ul>
+		)}
+	</div>
+</a>
